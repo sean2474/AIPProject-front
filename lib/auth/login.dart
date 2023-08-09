@@ -184,7 +184,7 @@ class LoginPageState extends State<LoginPage> {
                           Navigator.pop(context);
                           FirebaseAuth.instance.authStateChanges().listen((User? user) {
                             if (user != null) {
-                              Data.user = User_(id: 0, token: user.uid, userType: UserType.student, name: '', password: '', email: user.email ?? '');
+                              Data.user = User_(id: 0, uid: user.uid, userType: UserType.student, name: '', password: '', email: user.email ?? '');
                               debugPrint("google login success");
                               Navigator.pop(context);
                             } else {

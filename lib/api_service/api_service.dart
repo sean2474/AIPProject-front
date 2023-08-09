@@ -39,6 +39,12 @@ class ApiService {
     }
   }
 
+  Future<bool> checkUIDAuth() async {
+    print(Data.user?.uid);
+    dynamic responseBody = await _httpRequest('GET', '$baseUrl/auth/test');  
+    return responseBody.runtimeType == String;
+  }
+
   Future<bool> checkAuth() async {
     dynamic responseBody = await _httpRequest('GET', '$baseUrl/auth/testToken', data: {'token': token ?? ''});  
     return responseBody.runtimeType == String;
@@ -665,6 +671,10 @@ class ApiService {
     
     if (token != null) {
       request.headers["Authorization"] = "Bearer $token";
+    }
+
+    if (Data.user?.uid != null) {
+      request.headers["uid"] = Data.user!.uid ?? '';
     }
 
     // Set the 'Origin' header

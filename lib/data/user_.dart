@@ -2,7 +2,8 @@ import 'data.dart';
 
 class User_ {
   int id;
-  String token;
+  String? uid;
+  String? token;
   UserType userType;
   String name;
   String password;
@@ -10,11 +11,12 @@ class User_ {
 
   User_({
     required this.id, 
-    required this.token, 
     required this.userType, 
     required this.name, 
     required this.password,
     required this.email,
+    this.uid,
+    this.token, 
   });
 
   @override

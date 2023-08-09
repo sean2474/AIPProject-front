@@ -57,7 +57,12 @@ class HomePageState extends State<HomePage> {
               borderRadius: BorderRadius.circular(20),
               border: Border.all(color: colorScheme.onBackground, width: 1)
             ),
-            child: Column( ),
+            child: Column( 
+              children: [
+                // check sent to GET: /auth/testToken with UID in header["uid"]
+                TextButton(onPressed: () async => Data.apiService.checkUIDAuth(), child: Text("Check UID")),
+              ],
+            ),
           )
         ],
       )
