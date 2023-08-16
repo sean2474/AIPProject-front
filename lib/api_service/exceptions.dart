@@ -1,5 +1,3 @@
-// ignore_for_file: constant_identifier_names
-
 class ResponseType {
   static const int SUCCESS = 200;
   static const int CREATED = 201;
@@ -12,7 +10,6 @@ class ResponseType {
   static const int GATEWAY_TIMEOUT = 504;
 }
 
-/// exceptions
 class BadRequestException implements Exception {
   final String message;
   const BadRequestException(this.message);

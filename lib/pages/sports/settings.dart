@@ -45,13 +45,13 @@ class SettingPageState extends State<SettingPage> {
                   onTap: () {
                     showModalBottomSheet(
                       context: context, 
-                      isScrollControlled: true, // makes the height of the sheet dynamic
+                      isScrollControlled: true,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
                       ),
                       builder: (BuildContext context) {
-                        return FractionallySizedBox(
-                          heightFactor: 0.35,
+                        return SizedBox(
+                          height: 320,
                           child: GamesToDisplayPage(
                             gamesToDisplay: Data.settings.upcomingGamesToShow,
                             text: 'Upcoming Games To Display',
@@ -77,13 +77,13 @@ class SettingPageState extends State<SettingPage> {
                   onTap: () {
                     showModalBottomSheet(
                       context: context, 
-                      isScrollControlled: true, // makes the height of the sheet dynamic
+                      isScrollControlled: true, 
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
                       ),
                       builder: (BuildContext context) {
-                        return FractionallySizedBox(
-                          heightFactor: 0.35,
+                        return SizedBox(
+                          height: 320,
                           child: GamesToDisplayPage(
                             gamesToDisplay: Data.settings.recentGamesToShow,
                             text: 'Recent Games To Display',
@@ -109,13 +109,13 @@ class SettingPageState extends State<SettingPage> {
                   onTap: () {
                     showModalBottomSheet(
                       context: context, 
-                      isScrollControlled: true, // makes the height of the sheet dynamic
+                      isScrollControlled: true,
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
                       ),
                       builder: (BuildContext context) {
-                        return FractionallySizedBox(
-                          heightFactor: 0.8,
+                        return SizedBox(
+                          height: 730,
                           child: StarredSportsSettingPage(
                             sportsList: widget.sportsList,
                             onDialogClosed: widget.onDialogClosed!,

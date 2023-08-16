@@ -70,13 +70,13 @@ class LostAndFoundPageState extends State<LostAndFoundPage>
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context, 
-      isScrollControlled: true, // makes the height of the sheet dynamic
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
       ),
       builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.37, // makes the sheet take up half of the screen height
+        return SizedBox(
+          height: 350,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(
@@ -125,13 +125,13 @@ class LostAndFoundPageState extends State<LostAndFoundPage>
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     showModalBottomSheet(
       context: context,
-      isScrollControlled: true, // makes the height of the sheet dynamic
+      isScrollControlled: true,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
       ),
       builder: (BuildContext context) {
-        return FractionallySizedBox(
-          heightFactor: 0.37, // makes the sheet take up half of the screen height
+        return SizedBox(
+          height: 350,
           child: Container(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(

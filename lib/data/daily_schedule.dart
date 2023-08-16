@@ -18,6 +18,7 @@ class DailySchedule {
   String id;
   String startTime;
   String endTime;
+  DateTime startDateTime;
   String title;
   bool isRequired;
   String location;
@@ -32,6 +33,7 @@ class DailySchedule {
     required this.id,
     required this.startTime,
     required this.endTime,
+    required this.startDateTime,
     required this.title,
     required this.isRequired,
     required this.location,
@@ -85,8 +87,9 @@ class DailySchedule {
       isRequired: json["status"] != "busy",
       color: color,
       location: json["location"],
-      notificationId: id.hashCode * 10 + 1,
-      secondNotificationId: id.hashCode * 10 + 2,
+      notificationId: ("${id}1").hashCode,
+      secondNotificationId: ("${id}2").hashCode,
+      startDateTime: DateTime.parse(json["start"]),
     );
   }
 

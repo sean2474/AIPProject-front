@@ -83,7 +83,7 @@ class _EditPageState extends State<EditPage> {
                       return assets.storeItemBox(Data.storeItems[index], context, () {
                         showModalBottomSheet(
                           context: context, 
-                          isScrollControlled: true, // makes the height of the sheet dynamic
+                          isScrollControlled: true,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.vertical(top: Radius.circular(15.0)),
                           ),

@@ -23,8 +23,8 @@ class SettingModalState extends State<SettingModal> {
 
     return Consumer<ModelTheme>(
       builder: (context, ModelTheme themeNotifier, child) {
-        return FractionallySizedBox(
-          heightFactor: 0.37,
+        return SizedBox(
+          height: 340,
           child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.0),
             child: Column(

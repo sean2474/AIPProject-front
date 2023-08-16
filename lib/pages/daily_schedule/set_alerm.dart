@@ -50,8 +50,7 @@ class SetAlermPageState extends State<SetAlermPage> {
             ),
           ),
           Container(
-            margin: EdgeInsets.symmetric(vertical: 28,),
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            margin: EdgeInsets.symmetric(vertical: 28),
             decoration: BoxDecoration(
               color: colorScheme.background,
               borderRadius: BorderRadius.all(Radius.circular(20)),

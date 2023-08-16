@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:front/data/daily_schedule.dart';
 import 'package:front/data/data.dart';
+import 'package:front/notification_control/notification_controller.dart';
 import 'package:front/pages/daily_schedule/set_alerm.dart';
 import 'package:front/widgets/assets.dart';
 
@@ -205,6 +206,8 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
                       title: Text("Delete", style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
                       onTap: () {
                         setState(() {
+                          LocalNotification.cancelNotification(widget.dailySchedule.notificationId);
+                          LocalNotification.cancelNotification(widget.dailySchedule.secondNotificationId);
                           Data.settings.deletedSchedules.add(widget.dailySchedule.id);
                           Data.dailySchedules[widget.date]!.remove(widget.dailySchedule);
                         });
@@ -231,6 +234,28 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
   }
 
   Widget buildAlermButton(context, String text, int alermState, bool isSecondAlerm) {
+// 0. "None",
+// 1. "At the time of event",
+// 2. "5 minutes before",
+// 3. "15 minutes before",
+// 4. "30 minutes before",
+// 5. "1 hour before",
+// 6. "2 hours before",
+// 7. "1 day before",
+// 8. "2 days before",
+// 9. "1 week before",
+    List<int> alermToSecond = [
+      0,
+      0,
+      5 * 60,
+      15 * 60,
+      30 * 60,
+      60 * 60,
+      2 * 60 * 60,
+      24 * 60 * 60,
+      2 * 24 * 60 * 60,
+      7 * 24 * 60 * 60,
+    ];
     ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Container(
       height: 50,
@@ -245,8 +270,8 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
             context: context,
             isScrollControlled: true,
             builder:(context) {
-              return FractionallySizedBox(
-                heightFactor: 0.82,
+              return SizedBox(
+                height: 720,
                 child: SetAlermPage(
                   text: text,
                   dailySchedule: widget.dailySchedule,
@@ -257,7 +282,29 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
             },
           ).then((_) { 
             setState((){
-              
+              if (isSecondAlerm) {
+                if (widget.dailySchedule.secondNotificationTime == 0) {
+                  LocalNotification.cancelNotification(widget.dailySchedule.secondNotificationId);
+                } else {
+                  LocalNotification.scheduleNotification(
+                    widget.dailySchedule.secondNotificationId,
+                    widget.dailySchedule.title,
+                    widget.dailySchedule.description,
+                    widget.dailySchedule.startDateTime.subtract(Duration(seconds: alermToSecond[widget.dailySchedule.secondNotificationTime]))
+                  );
+                }
+              } else {
+                if (widget.dailySchedule.notificationTime == 0) {
+                  LocalNotification.cancelNotification(widget.dailySchedule.notificationId);
+                } else {
+                  LocalNotification.scheduleNotification(
+                    widget.dailySchedule.notificationId,
+                    widget.dailySchedule.title,
+                    widget.dailySchedule.description,
+                    widget.dailySchedule.startDateTime.subtract(Duration(seconds: alermToSecond[widget.dailySchedule.notificationTime]))
+                  );
+                }
+              }
             });
           });
         },

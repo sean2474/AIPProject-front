@@ -77,14 +77,14 @@ class UploadingSnackbar {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 Text(
-                  "Failed",  // changed to "failed"
+                  "Failed",
                   textAlign: TextAlign.center, 
                   style: Theme.of(context).textTheme.labelLarge!.copyWith(
                     fontWeight: FontWeight.bold,
                     color: lightColorScheme.onError,
                   ),
                 ),
-                Icon(Icons.error_outline, color: lightColorScheme.onError), // change to an error icon
+                Icon(Icons.error_outline, color: lightColorScheme.onError),
               ],
             )
           ),

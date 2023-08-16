@@ -1,6 +1,3 @@
-/// api_service.dart
-// ignore_for_file: depend_on_referenced_packages, import_of_legacy_library_into_null_safe
-
 import 'dart:convert';
 import 'dart:io';
 import 'package:flutter/material.dart';
@@ -91,7 +88,6 @@ class ApiService {
     return await _httpRequest('DELETE', '$baseUrl/data/daily-schedule/$date');
   }
 
-  // food menu
   Future<List<Map<String, dynamic>>> getFoodMenu() async {
     dynamic data = await _httpRequest('GET', '$baseUrl/data/food-menu/all');
 
@@ -194,14 +190,6 @@ class ApiService {
       request.headers["uid"] = Data.user!.uid ?? '';
     }
 
-    // Set the 'Origin' header
-    // request.headers.set('Origin', 'https://your-origin.com');
-
-    // Set the 'Referer-Policy' header
-    // request.headers.set('Referer-Policy', 'strict-origin-when-cross-origin');
-
-    // Set any other necessary headers for authentication or API access
-    // request.headers.set('Client-data', 'your-session-token');
     final streamedResponse = await request.send();
     Response response = await Response.fromStream(streamedResponse);
     if (response.statusCode == ResponseType.UNAUTHORIZED) {
@@ -224,7 +212,6 @@ class ApiService {
       try {
         data = jsonDecode(responseBody);
       } on FormatException {
-        // responseBody is not valid JSON but string
         return responseBody;
       }
       return data;

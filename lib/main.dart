@@ -66,8 +66,7 @@ void main() async {
     try {
       Data.user = await Data.apiService.login(await Get.username() ?? '', await Get.userPassword() ?? '');
       break;
-    // ignore: empty_catches
-    } on Exception { }
+    } on Exception { /* */ }
     await Future.delayed(Duration(microseconds: 10));
   }
 
@@ -153,7 +152,6 @@ void main() async {
   Data.settings.upcomingGamesToShow = await Get.upcomingGamesToShow();
   Data.settings.starredSports = (await Get.starredSports()).join(' ');
 
-  // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
   PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
@@ -176,8 +174,6 @@ class StudentManagementAppState extends State<StudentManagementApp> with Widgets
   @override
   void initState() {
     super.initState();
-    // test notification
-    LocalNotification.showNotificationTest();
     WidgetsBinding.instance.addObserver(this);
   }
 

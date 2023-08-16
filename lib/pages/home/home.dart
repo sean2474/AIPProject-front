@@ -53,7 +53,6 @@ class HomePageState extends State<HomePage> {
               ),
             ),
           ),
-          // notification part
           Container(
             width: double.infinity,
             height: MediaQuery.of(context).size.height / 2.3,
@@ -64,7 +63,7 @@ class HomePageState extends State<HomePage> {
             ),
             child: Column( 
               children: [
-                // check sent to GET: /auth/testToken with UID in header["uid"]
+                 check sent to GET: /auth/testToken with UID in header["uid"]
                 TextButton(onPressed: () async => Data.apiService.checkUIDAuth(), child: Text("Check UID")),
               ],
             ),

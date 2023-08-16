@@ -1,6 +1,3 @@
-/// assets.dart
-/// This file contains the assets used in the app.
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -169,9 +166,6 @@ class Assets {
     }
   }
 
-  /// This function returns a button that opens the drawer.
-  /// 
-  /// [drawer: assets.build(context)] must be added to the Scaffold for this to work.
   Widget menuBarButton(
     BuildContext context,
   ) {

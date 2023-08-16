@@ -1,5 +1,3 @@
-/// sports.dart
-
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
@@ -105,7 +103,6 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
 
     List<String> starredSportsSet = Data.settings.starredSports.split(" ").toList();
 
-    // Filter the game data based on the getStarredGames flag
     List<GameInfo> filteredGameData = getStarredGames
       ? gameData.where((game) {
           String key = '${game.sportsName.toLowerCase().replaceAll(" ", "_")}_${getSportsCategoryToString(game.teamCategory)}';
@@ -113,7 +110,6 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
         }).toList()
       : gameData;
 
-    // Separate recent games
     for (GameInfo game in filteredGameData.toList()) {
       DateTime gameTime = DateTime.parse(game.gameDate);
       if (gameTime.isBefore(currentTime)) {
@@ -121,14 +117,12 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
       }
     }
 
-    // Reverse recent games and ensure the length matches recentGamesCount by adding placeholder games (naGame)
     recentGames = recentGames.reversed.toList();
     for (int i = recentGames.length; i < recentGamesCount; i++) {
       recentGames.add(naGame);
     }
     recentGames = recentGames.reversed.toList();
 
-    // Return recent games
     return recentGames.reversed.take(recentGamesCount).toList();
   }
 
@@ -139,10 +133,7 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
   }) {
     DateTime currentTime = DateTime.now();
     List<GameInfo> upcomingGames = [];
-
     List<String> starredSportsSet = Data.settings.starredSports.split(" ").toList();
-
-    // Filter the game data based on the getStarredGames flag
     List<GameInfo> filteredGameData = getStarredGames
       ? gameData.where((game) {
           String key = '${game.sportsName.toLowerCase().replaceAll(" ", "_")}_${getSportsCategoryToString(game.teamCategory)}';
@@ -150,7 +141,6 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
         }).toList()
       : gameData;
 
-    // Separate upcoming games
     for (GameInfo game in filteredGameData.toList()) {
       DateTime gameTime = DateTime.parse(game.gameDate);
       if (gameTime.isAfter(currentTime)) {
@@ -158,12 +148,10 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
       }
     }
 
-    // Ensure the length of upcomingGames matches upcomingGamesCount by adding placeholder games (naGame)
     for (int i = upcomingGames.length; i < upcomingGamesCount; i++) {
       upcomingGames.add(naGame);
     }
 
-    // Clear coachComment and matchResult of upcomingGames
     for (GameInfo game in upcomingGames) {
       game.coachComment = '';
       game.matchResult = '';
@@ -209,8 +197,8 @@ class GamePageState extends State<GamePage> with SingleTickerProviderStateMixin 
                     backgroundColor: Colors.transparent,
                     barrierColor: Colors.black.withOpacity(0.9),
                     builder: (BuildContext context) {
-                      return FractionallySizedBox(
-                        heightFactor: 0.9,
+                      return SizedBox(
+                        height: 820,
                         child: PageView.builder(
                           controller: pageController,
                           itemCount: gamesList.length,

@@ -4,7 +4,6 @@ import 'package:intl/intl.dart';
 import 'package:front/widgets/assets.dart';
 import 'method.dart';
 
-// check https://www.avonoldfarms.com/athletics/teams-schedules/fall-sports/varsityfootball in mobile view
 class SportsInfoPage extends StatefulWidget {
   final List<SportsInfo> sportsData;
   final List<GameInfo> gameData;
@@ -252,7 +251,7 @@ class SportsInfoPageState extends State<SportsInfoPage> with SingleTickerProvide
       ),
       body: Container(
         margin: EdgeInsets.symmetric(horizontal: 10),
-        child: SingleChildScrollView( // Add SingleChildScrollView here
+        child: SingleChildScrollView( 
           child: Column(
             children: informations.asMap().entries.map<Widget>((entry) {
               int index = entry.key;

@@ -121,8 +121,8 @@ class _EditItemPageState extends State<EditItemPage> {
     screenWidth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
-    return FractionallySizedBox(
-      heightFactor: 0.8, 
+    return SizedBox(
+      height: 730, 
       child: Container(
         padding: EdgeInsets.symmetric(horizontal: 20.0),
         decoration: BoxDecoration(

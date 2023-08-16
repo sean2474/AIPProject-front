@@ -52,7 +52,6 @@ getSportsIcon(String sportsName, double size, {Color? iconColor}) {
 }
 
 String getSportsCategoryToString(TeamCategory category) {
-  // enum TeamCategory { varsity, jv, vb, thirds, thirdsBlue, thirdsRed, fourth, fifth, na }
   switch (category) {
     case TeamCategory.fifth:
       return 'Fifth';
@@ -78,7 +77,6 @@ String getSportsCategoryToString(TeamCategory category) {
 }
 
 TeamCategory getStringToSportsCategory(String category) {
-  // enum TeamCategory { varsity, jv, vb, thirds, thirdsBlue, thirdsRed, fourth, fifth, na }
   switch (category) {
     case 'Fifth':
       return TeamCategory.fifth;
