@@ -42,8 +42,13 @@ class HomePageState extends State<HomePage> {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(20),
               child: CachedNetworkImage(
-                imageUrl: "${Data.apiService.baseUrl}/data/daily-schedule/image",
-                // imageUrl: "${Data.apiService.baseUrl}/data/daily-schedule/image/2023-07-28",
+                imageUrl: "${Data.apiService.baseUrl}/data/daily-schedule/image/2023-07-28",
+                errorWidget: (context, url, error) => Container(
+                  child: Image(
+                    image: AssetImage('assets/icons/imageNotFound.png'),
+                    fit: BoxFit.cover,
+                  ),
+                ),
                 fit: BoxFit.cover,
               ),
             ),

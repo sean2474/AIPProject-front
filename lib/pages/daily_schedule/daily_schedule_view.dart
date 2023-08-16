@@ -25,9 +25,9 @@ class DailyScheduleViewPageState extends State<DailyScheduleViewPage> {
       ? Colors.grey.shade800
       : null;
     if (Data.settings.isDailyScheduleTimelineMode) {
-      return TimelineScheduleBuilder(widget: widget);
+      return TimelineScheduleBuilder(widget: widget, callback: () => setState(() {}));
     } else {
-      return BlockScheduleBuilder(widget: widget, textColor: textColor);
+      return BlockScheduleBuilder(widget: widget, textColor: textColor, callback: () => setState(() {}));
     }
   }
 }
@@ -37,10 +37,12 @@ class BlockScheduleBuilder extends StatelessWidget {
     super.key,
     required this.widget,
     required this.textColor,
+    required this.callback,
   });
 
   final DailyScheduleViewPage widget;
   final Color? textColor;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class BlockScheduleBuilder extends StatelessWidget {
           }).forEach((schedule) {
             children.add(
               Container(
-                margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                margin: EdgeInsets.symmetric(vertical: 5, horizontal: 10),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10),
                   color: schedule.color.withAlpha(100),
@@ -80,7 +82,7 @@ class BlockScheduleBuilder extends StatelessWidget {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => DailyScheduleInfoPage(dailySchedule: schedule, date: widget.date),
+                        builder: (context) => DailyScheduleInfoPage(dailySchedule: schedule, date: widget.date, callback: () => callback()),
                       ),
                     );
                   },
@@ -99,8 +101,10 @@ class TimelineScheduleBuilder extends StatelessWidget {
   const TimelineScheduleBuilder({
     super.key,
     required this.widget,
+    required this.callback,
   });
   final DailyScheduleViewPage widget;
+  final VoidCallback callback;
 
   @override
   Widget build(BuildContext context) {
@@ -203,7 +207,7 @@ class TimelineScheduleBuilder extends StatelessWidget {
                                 Navigator.push(
                                   context,
                                   MaterialPageRoute(
-                                    builder: (context) => DailyScheduleInfoPage(dailySchedule: schedule, date: widget.date),
+                                    builder: (context) => DailyScheduleInfoPage(dailySchedule: schedule, date: widget.date, callback: () => callback()),
                                   ),
                                 );
                               },

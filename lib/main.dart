@@ -54,6 +54,7 @@ void main() async {
     sortLostAndFoundBy: await Get.sortLostAndFoundBy() ?? 'date',
     showReturnedItem: await Get.showReturnedItemsInLostAndFound(),
     isDailyScheduleTimelineMode: await Get.isDailyScheduleTimelineMode(),
+    deletedSchedules: await Get.deletedSchedules(),
     isThemeModeAuto: await Get.isThemeModeAuto(),
     isDarkMode: await Get.isDarkMode(),
   );
@@ -212,6 +213,7 @@ class StudentManagementAppState extends State<StudentManagementApp> with Widgets
                   builder: (context) => DailyScheduleInfoPage(
                     dailySchedule: args['dailySchedule'] as DailySchedule,
                     date: args['date'] as String,
+                    callback: () => setState(() {}),
                   ),
                 );
               } else if (settings.name == "/game/info") {

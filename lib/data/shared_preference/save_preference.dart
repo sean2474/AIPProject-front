@@ -36,6 +36,10 @@ class Save {
     saveValue(SharedPreferenceKeys.isDailyScheduleTimelineMode, isDailyScheduleTimelineMode.toString());
   }
 
+  static Future<void> deletedSchedules(List<String> deletedSchedules) async {
+    saveValue(SharedPreferenceKeys.deletedSchedules, deletedSchedules.join(' '));
+  }
+
   static Future<void> user(User_ user) async {
     saveValue(SharedPreferenceKeys.username, user.email);
     saveValue(SharedPreferenceKeys.userPassword, user.password);
@@ -47,6 +51,7 @@ class Save {
     starredSports(settings.starredSports.split(" "));
     sortLostAndFoundBy(settings.sortLostAndFoundBy);
     dailyScheduleTimelineMode(settings.isDailyScheduleTimelineMode);
+    deletedSchedules(settings.deletedSchedules);
     showReturnedItemsInLostAndFound(settings.showReturnedItem);
     themeModeAuto(settings.isThemeModeAuto);
     darkMode(settings.isDarkMode);

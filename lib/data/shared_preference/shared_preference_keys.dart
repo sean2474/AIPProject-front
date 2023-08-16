@@ -7,6 +7,7 @@ class SharedPreferenceKeys {
   static const String sortLostAndFoundBy = 'sortLostAndFoundBy';
   static const String showReturnedItemsInLostAndFound = 'showReturnedItemsInLostAndFound';
   static const String isDailyScheduleTimelineMode = 'isDailyScheduleTimelineMode';
+  static const String deletedSchedules = 'deletedSchedules';
   static const String isThemeModeAuto = 'isThemeModeAuto';
   static const String isDarkMode = 'isDarkMode';
 }

@@ -3,6 +3,7 @@ class Settings {
   int upcomingGamesToShow;
   String starredSports;
   String sortLostAndFoundBy;
+  List<String> deletedSchedules = [];
   bool showReturnedItem;
   bool isDailyScheduleTimelineMode;
   bool isThemeModeAuto;
@@ -16,6 +17,7 @@ class Settings {
     required this.sortLostAndFoundBy, 
     required this.showReturnedItem,
     required this.isDailyScheduleTimelineMode,
+    required this.deletedSchedules,
     required this.isThemeModeAuto,
     required this.isDarkMode,
   });

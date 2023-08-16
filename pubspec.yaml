@@ -79,6 +79,7 @@ flutter:
     - assets/
     - assets/sports_icons/
     - assets/google_login_icon/
+    - assets/icons/
 
   # The following line ensures that the Material Icons font is
   # included with your application, so that you can use the icons in

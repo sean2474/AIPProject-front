@@ -52,6 +52,15 @@ class Get {
     }
   }
 
+  static Future<List<String>> deletedSchedules() async {
+    String? deletedSchedules = await readValue(SharedPreferenceKeys.deletedSchedules);
+    if (deletedSchedules == null) {
+      return [];
+    } else {
+      return deletedSchedules.split(' ');
+    }
+  }
+
   static Future<String?> username() async {
     return await readValue(SharedPreferenceKeys.username);
   }

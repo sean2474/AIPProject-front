@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:front/data/daily_schedule.dart';
+import 'package:front/data/data.dart';
 import 'package:front/pages/daily_schedule/set_alerm.dart';
 import 'package:front/widgets/assets.dart';
 
@@ -8,11 +9,13 @@ import 'constants.dart';
 class DailyScheduleInfoPage extends StatefulWidget {
   final DailySchedule dailySchedule;
   final String date;
+  final VoidCallback callback;
 
   const DailyScheduleInfoPage({
     Key? key, 
     required this.dailySchedule,
     required this.date,
+    required this.callback,
   }) : super(key: key);
 
   @override
@@ -88,6 +91,14 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
                   ),
                   Text(
                     "${widget.dailySchedule.startTime} ~ ${widget.dailySchedule.endTime}",
+                    style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                      color: Theme.of(context).brightness == Brightness.light 
+                        ? Colors.grey.shade800
+                        : null,
+                    ),
+                  ),
+                  Text(
+                    !widget.dailySchedule.isRequired ? "*Required" : "Optional",
                     style: Theme.of(context).textTheme.bodyLarge!.copyWith(
                       color: Theme.of(context).brightness == Brightness.light 
                         ? Colors.grey.shade800
@@ -193,6 +204,12 @@ class DailyScheduleInfoPageState extends State<DailyScheduleInfoPage> {
                     ListTile(
                       title: Text("Delete", style: TextStyle(color: Colors.red), textAlign: TextAlign.center),
                       onTap: () {
+                        setState(() {
+                          Data.settings.deletedSchedules.add(widget.dailySchedule.id);
+                          Data.dailySchedules[widget.date]!.remove(widget.dailySchedule);
+                        });
+                        widget.callback();
+                        Navigator.pop(context);
                         Navigator.pop(context);
                       }
                     ),

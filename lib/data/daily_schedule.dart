@@ -1,5 +1,6 @@
 import 'dart:collection';
 import 'package:flutter/material.dart';
+import 'package:front/data/data.dart';
 
 // notification time:
 // 0. "None",
@@ -14,7 +15,7 @@ import 'package:flutter/material.dart';
 // 9. "1 week before",
 
 class DailySchedule {
-  int id;
+  String id;
   String startTime;
   String endTime;
   String title;
@@ -22,7 +23,6 @@ class DailySchedule {
   String location;
   String description;
   Color color;
-  HashSet<int> resource;
   int notificationId;
   int notificationTime = 0;
   int secondNotificationId;
@@ -37,44 +37,83 @@ class DailySchedule {
     required this.location,
     required this.description,
     required this.color,
-    required this.resource,
     required this.notificationId,
     required this.secondNotificationId,
   });
 
-  static Map<String, List<DailySchedule>> transformData(Map<String, dynamic> data) {
+  static Map<String, List<DailySchedule>> transformData(List<dynamic> data) {
     Map<String, List<DailySchedule>> dailySchedules = {};
-    data.forEach((key, values) {
-      List<DailySchedule> dailySchedule = [];
-      for (dynamic value in values) {
-        dailySchedule.add(DailySchedule.fromJson(value));
+    // sort data by start and end
+    data.sort((a, b) {
+      if (a["start"].toString() == b["start"].toString()) {
+        return a["end"].toString().compareTo(b["end"].toString());
       }
-      dailySchedule.sort((a, b) => a.startTime.compareTo(b.startTime));
-      print(key);
-      dailySchedules[key] = dailySchedule;
+      return a["start"].toString().compareTo(b["start"].toString());
     });
+
+    for (dynamic schedule in data) {
+      String date = schedule["start"].toString().split("T")[0];
+      DailySchedule dailySchedule = DailySchedule.fromJson(schedule);
+      if (Data.settings.deletedSchedules.contains(dailySchedule.id)) continue;
+      if (dailySchedules[date] == null) {
+        dailySchedules[date] = [dailySchedule];
+      } else {
+        dailySchedules[date]!.add(dailySchedule);
+      }
+    }
     return dailySchedules;
   }
   
   factory DailySchedule.fromJson(Map<String, dynamic> json) {
+    String id = json["title"]+json["start"].toString()+json["end"].toString();
+    Color color = Colors.black;
+    String? colorString = json["color"];
+    if (colorString != null) {
+      if (colorString.startsWith("rgba(")) {
+        color = parseColor(colorString);
+      } else if (colorString.startsWith("#")) {
+        color = Color(int.parse("0xFF${colorString.substring(1, 7)}"));
+      }
+    }
     return DailySchedule(
-      id: json["id"],
-      startTime: json["start"].toString().split("T")[1],
-      endTime: json["end"].toString().split("T")[1],
+      id: json["title"]+json["start"].toString()+json["end"].toString(),
       title: json["title"],
-      // check after actual endpoint connect
       description: json["description"],
-      isRequired: json["isRequired"],
-      color: Color(int.parse("0xFF${json["color"].substring(1, 7)}")), // , 
-      resource: HashSet<int>()..addAll(json["resource"]),
+      startTime: json["start"].toString().split("T")[1].substring(0, 5),
+      endTime: json["end"].toString().split("T")[1].substring(0, 5),
+      // TODO: should be changed maybe?
+      isRequired: json["status"] != "busy",
+      color: color,
       location: json["location"],
-      notificationId: json["id"] * 10 + 1,
-      secondNotificationId: json["id"] * 10 + 2,
+      notificationId: id.hashCode * 10 + 1,
+      secondNotificationId: id.hashCode * 10 + 2,
     );
   }
-    
+
   @override
   String toString() {
     return "$title $startTime";
+  }
+
+  static Color parseColor(String rgbaString) {
+    if (rgbaString.isEmpty || !rgbaString.startsWith('rgba(')) {
+      print(rgbaString);
+      throw FormatException('The provided string is not a valid rgba format');
+    }
+
+    final strippedString = rgbaString.substring(5, rgbaString.length - 1);
+
+    final rgbaValues = strippedString.split(',');
+
+    if (rgbaValues.length != 4) {
+      throw FormatException('The provided string is not a valid rgba format');
+    }
+
+    final r = int.parse(rgbaValues[0].trim());
+    final g = int.parse(rgbaValues[1].trim());
+    final b = int.parse(rgbaValues[2].trim());
+    final a = (double.parse(rgbaValues[3].trim()) * 255).toInt();
+
+    return Color.fromARGB(a, r, g, b);
   }
 }
