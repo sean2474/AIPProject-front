@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:front/data/data.dart';
+import 'package:front/data/shared_preference/save_preference.dart';
 
 import 'setting_modal.dart';
 
@@ -63,8 +64,19 @@ class HomePageState extends State<HomePage> {
             ),
             child: Column( 
               children: [
-                 check sent to GET: /auth/testToken with UID in header["uid"]
-                TextButton(onPressed: () async => Data.apiService.checkUIDAuth(), child: Text("Check UID")),
+                 // check sent to GET: /auth/testToken with UID in header["uid"]
+                TextButton(
+                  onPressed: () async => Data.apiService.checkUIDAuth(), 
+                  child: Text("Check UID")
+                ),
+                TextButton(
+                  onPressed: () async => Save.all(),
+                  child: Text("save settings")
+                ),
+                TextButton(
+                  onPressed: () async => Save.reset(),
+                  child: Text("reset")
+                ),
               ],
             ),
           )

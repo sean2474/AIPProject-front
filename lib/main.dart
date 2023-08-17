@@ -35,8 +35,14 @@ void main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
+  bool isThemeModeAuto = await Get.isThemeModeAuto();
+  bool isDarkMode = await Get.isDarkMode();
   runApp(MaterialApp(
-    home: LoadingPage(),
+    home: LoadingPage(
+      isDarkMode: isThemeModeAuto 
+        ? ThemeMode.system == ThemeMode.dark
+        : isDarkMode,
+    ),
     debugShowCheckedModeBanner: false,
   ));
 
@@ -55,8 +61,8 @@ void main() async {
     showReturnedItem: await Get.showReturnedItemsInLostAndFound(),
     isDailyScheduleTimelineMode: await Get.isDailyScheduleTimelineMode(),
     deletedSchedules: await Get.deletedSchedules(),
-    isThemeModeAuto: await Get.isThemeModeAuto(),
-    isDarkMode: await Get.isDarkMode(),
+    isThemeModeAuto: isThemeModeAuto,
+    isDarkMode: isDarkMode,
   );
 
   Data.apiService = ApiService(baseUrl: baseUrl);
@@ -187,10 +193,7 @@ class StudentManagementAppState extends State<StudentManagementApp> with Widgets
   @override
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.paused || state == AppLifecycleState.detached) {
-      Save.settings(Data.settings);
-      if (Data.user != null) {
-        Save.user(Data.user!);
-      }
+      Save.all();
     }
   }
 

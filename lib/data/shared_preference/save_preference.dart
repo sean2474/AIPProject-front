@@ -1,59 +1,61 @@
-import 'package:front/data/settings.dart';
-import 'package:front/data/user_.dart';
-
+import 'package:front/data/data.dart';
 import 'shared_preference_storage.dart';
 import 'shared_preference_keys.dart';
 
 class Save {
-  static Future<void> themeModeAuto(bool isThemeModeAuto) async {
-    saveValue(SharedPreferenceKeys.isThemeModeAuto, isThemeModeAuto.toString());
+  static Future<void> themeModeAuto() async {
+    saveValue(SharedPreferenceKeys.isThemeModeAuto, Data.settings.isThemeModeAuto.toString());
   }
-  static Future<void> darkMode(bool isDarkMode) async {
-    saveValue(SharedPreferenceKeys.isDarkMode, isDarkMode.toString());
-  }
-
-  static Future<void> recentGamesToShow(int recentGames) async {
-    saveValue(SharedPreferenceKeys.numbersOfRecentGamesResultToShow, recentGames.toString());
+  static Future<void> darkMode() async {
+    saveValue(SharedPreferenceKeys.isDarkMode, Data.settings.isDarkMode.toString());
   }
 
-  static Future<void> upcomingGamesToShow(int upcomingGames) async {
-    saveValue(SharedPreferenceKeys.numbersOfUpcomingGamesResultToShow, upcomingGames.toString());
+  static Future<void> recentGamesToShow() async {
+    saveValue(SharedPreferenceKeys.numbersOfRecentGamesResultToShow, Data.settings.recentGamesToShow.toString());
   }
 
-  static Future<void> sortLostAndFoundBy(String sort) async {
-    saveValue(SharedPreferenceKeys.sortLostAndFoundBy, sort);
+  static Future<void> upcomingGamesToShow() async {
+    saveValue(SharedPreferenceKeys.numbersOfUpcomingGamesResultToShow, Data.settings.upcomingGamesToShow.toString());
   }
 
-  static Future<void> showReturnedItemsInLostAndFound(bool show) async {
-    saveValue(SharedPreferenceKeys.showReturnedItemsInLostAndFound, show.toString());
+  static Future<void> sortLostAndFoundBy() async {
+    saveValue(SharedPreferenceKeys.sortLostAndFoundBy, Data.settings.sortLostAndFoundBy);
   }
 
-  static Future<void> starredSports(List<String> sports) async {
-    saveValue(SharedPreferenceKeys.starredSports, sports.join(' '));
+  static Future<void> showReturnedItemsInLostAndFound() async {
+    saveValue(SharedPreferenceKeys.showReturnedItemsInLostAndFound, Data.settings.showReturnedItem.toString());
   }
 
-  static Future<void> dailyScheduleTimelineMode(bool isDailyScheduleTimelineMode) async {
-    saveValue(SharedPreferenceKeys.isDailyScheduleTimelineMode, isDailyScheduleTimelineMode.toString());
+  static Future<void> starredSports() async {
+    saveValue(SharedPreferenceKeys.starredSports, Data.settings.starredSports);
   }
 
-  static Future<void> deletedSchedules(List<String> deletedSchedules) async {
-    saveValue(SharedPreferenceKeys.deletedSchedules, deletedSchedules.join(' '));
+  static Future<void> dailyScheduleTimelineMode() async {
+    saveValue(SharedPreferenceKeys.isDailyScheduleTimelineMode, Data.settings.isDailyScheduleTimelineMode.toString());
   }
 
-  static Future<void> user(User_ user) async {
-    saveValue(SharedPreferenceKeys.username, user.email);
-    saveValue(SharedPreferenceKeys.userPassword, user.password);
+  static Future<void> deletedSchedules() async {
+    saveValue(SharedPreferenceKeys.deletedSchedules, Data.settings.deletedSchedules.join('|'));
   }
 
-  static Future<void> settings(Settings settings) async {
-    recentGamesToShow(settings.recentGamesToShow);
-    upcomingGamesToShow(settings.upcomingGamesToShow);
-    starredSports(settings.starredSports.split(" "));
-    sortLostAndFoundBy(settings.sortLostAndFoundBy);
-    dailyScheduleTimelineMode(settings.isDailyScheduleTimelineMode);
-    deletedSchedules(settings.deletedSchedules);
-    showReturnedItemsInLostAndFound(settings.showReturnedItem);
-    themeModeAuto(settings.isThemeModeAuto);
-    darkMode(settings.isDarkMode);
+  static Future<void> user() async {
+    saveValue(SharedPreferenceKeys.username, Data.user == null ? '' : Data.user!.email);
+    saveValue(SharedPreferenceKeys.userPassword, Data.user == null ? '' : Data.user!.password);
+  }
+
+  static Future<void> all() async {
+    recentGamesToShow();
+    upcomingGamesToShow();
+    starredSports();
+    sortLostAndFoundBy();
+    dailyScheduleTimelineMode();
+    deletedSchedules();
+    showReturnedItemsInLostAndFound();
+    themeModeAuto();
+    darkMode();
+  }
+
+  static Future<void> reset() async {
+    await resetAllValues();
   }
 }

@@ -57,7 +57,7 @@ class Get {
     if (deletedSchedules == null) {
       return [];
     } else {
-      return deletedSchedules.split(' ');
+      return deletedSchedules.split('|');
     }
   }
 

@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:front/color_schemes.g.dart';
 
 class LoadingPage extends StatelessWidget {
-
-  LoadingPage({super.key});
+  final bool isDarkMode;
+  LoadingPage({super.key, required this.isDarkMode});
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: isDarkMode ? darkColorScheme.background : lightColorScheme.background,
       body: Center(
         child: Stack(
           children: [
