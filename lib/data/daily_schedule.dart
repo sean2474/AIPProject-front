@@ -83,7 +83,7 @@ class DailySchedule {
       startTime: json["start"].toString().split("T")[1].substring(0, 5),
       endTime: json["end"].toString().split("T")[1].substring(0, 5),
       // TODO: should be changed maybe?
-      isRequired: json["status"] != "busy",
+      isRequired: json["status"] == "busy",
       color: color,
       location: json["location"],
       notificationId: ("${id}1").hashCode,
