@@ -23,7 +23,6 @@ class ItemPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    ColorScheme colorScheme = Theme.of(context).colorScheme;
     Color? textColor = Theme.of(context).brightness == Brightness.light ? Colors.grey.shade800 : null;
     DateFormat dateFormat = DateFormat('yyyy-MM-dd HH:mm');
     return Scaffold(
